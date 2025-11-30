@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Best Buddies ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Question Box */
+#questionBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Buttons */
+button {
+    padding: 12px 25px;
+    font-size: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+    transition: 0.3s;
+}
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff4d6d;
+}
+
+/* Main Content */
+#mainContent { display: none; }
+
+/* Thank You Message */
+#thankYou {
+    display: none;
+    font-size: 36px;
+    margin-top: 40px;
+    color: #ff4d6d;
+}
+
+/* Corner Button */
+.corner-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-size: 36px;
+    font-family: "Georgia", serif; 
+    color: skyblue;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+/* Layout */
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.text-box {
+    width: 50%;
+    padding: 20px;
+    font-size: 22px;
+    line-height: 1.5;
+}
+
+.text-box h1 {
+    font-size: 40px;
+    color: #ff4d6d;
+}
+
+.image-box {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Slideshow */
+.slideshow {
+    position: relative;
+    width: 95%;
+    height: 80vh;
+}
+.slide {
+    display: none;
+    position: absolute;
+    width: 95%;
+    height: 100%;
+}
+.slide img {
+    width: 95%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 0 20px #ff4d6d;
+}
+
+/* Fullscreen Video */
+#finalVideo {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 100vh;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in;
+    z-index: 3000;
+}
+
+/* Final Image */
+#finalImageBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 4000;
+}
+
+#finalImage {
+    width: 80vw;
+    max-width: 350px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #ff4d6d;
+}
+
+#finalImageText {
+    font-size: 35px;
+    margin-top: 20px;
+    color: #ff4d6d;
+}
+
+/* Custom Message Box */
+#customMessageBox {
+    display: none;
+    font-size: 24px;
+    color: #ff4d6d;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.5;
+    z-index: 4500;
+    overflow-y: auto;
+    max-height: 70vh;
+    padding: 10px;
+}
+
+/* Final Thank You */
+#finalThankYou {
+    display: none;
+    font-size: 24px;
+    color: #fffefe;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 700px;
+    max-height: 70vh;
+    overflow-y: auto;
+    line-height: 1.5;
+    padding: 20px;
+    background: rgba(0,0,0,0.85);
+    
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    .text-box { width: 90%; font-size: 18px; }
+    .image-box { width: 90%; margin-top: 20px; }
+    #customMessageBox { font-size: 20px; max-width: 90%; width: 90%; }
+    #finalImage { width: 60vw; max-width: 250px; }
+    #finalImageText { font-size: 28px; }
+    #finalThankYou { font-size: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Question -->
+<div id="questionBox">
+    <h1>I am your best friend??</h1>
+    <button onclick="handleAnswer('yes')">Yes</button>
+    <button onclick="handleAnswer('no')">No</button>
+</div>
+
+<!-- Thank You Message for NO -->
+<div id="thankYou">Thank you for being here 💖<br> You are truly special ✨😊</div>
+
+<!-- Main Content -->
+<div id="mainContent">
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\song3.mp3.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Corner Tag -->
+    <div class="corner-btn">#BestBuddiess😘🤗</div>
+
+    <div class="container">
+        <div class="text-box">
+            <h1>My Dear Friend ❤️</h1> 
+            <p>Some people come into our life and leave a lasting impression. You are one of those rare souls. Thank you for every moment, every smile, every support, and every memory we have shared. My feelings are simple😘 I'm truly blessed to have a friend like you.</p>
+            <p>Sometimes unexpected friendship is always the best 💗</p> 
+            <p>Gayatri… ek sukoon sa hai teri baaton mein, Jaise har lafz mere dil ko shaant kar deta ho. Tujhse baat karke lagta hai jaise duniya ki saari tension door ho jaati hai..!🤗❤️<br>
+            Gayatri Every day I pray for both of us to Stay Together and our Bond to grow stronger and stronger I don’t know… aage jaake tere jaisi dost mujhe milegi ya nahi...💕💞<br>
+            But ek baat sure hai aaj ke time me tere jaise dost bohot hi kam milte hain.<br>
+            Thank you for everything… for every support, every care, every moment.<br>
+            Tu mere life ka woh hissa hai jo hamesha special rahega.<br>
+            Truly… I’m blessed to have a friend like you....💜 〰️ From Aman :)💖</p>
+        </div>
+
+        <div class="image-box">
+            <div class="slideshow">
+                <div class="slide"><img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\pic1.jpg.jpeg"></div>
+                <div class="slide"><img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\pic2.jpg.jpeg"></div>
+                <div class="slide"><img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\pic3.jpg.jpeg"></div>
+                <div class="slide"><img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\pic4.jpg.jpeg"></div>
+                <div class="slide"><img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\pic5.jgp.jpeg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen Video -->
+<video id="finalVideo">
+    <source src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\Vedio.mp4.mp4" type="video/mp4">
+</video>
+
+<!-- FINAL IMAGE -->
+<div id="finalImageBox">
+    <img src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\b48a8db8-db54-497b-b88e-dc64ed674fcc.jpg" id="finalImage">
+    <p id="finalImageText">You are the best budiee forever..🧿</p>
+</div>
+
+<!-- Custom Message Box -->
+<div id="customMessageBox">
+    When you say BYE to me...😢<br>
+
+    <p>ME:- Iss baar mei tumhe rokungi toh rukoge kya?<br>
+    Mana milna mushkil hai thoda, Lekin mei milne bulaungi toh sirf mujhse milne aaoge kya?<br>
+    Baatein toh bohot krni hai, Utna waqt nikal paoge kya?<br>
+    Iss baar "kaise ho", na poochkr, Sidha gale lagau toh, Lagane doge kya?<br>
+    Shabdon se shayad kuch na bta pau, Aakhein meri pd paoge kya?<br>
+    Dost toh ho tum mere, Lekin iss baar yeh rishta ache se nibha paoge kya?<br>
+    Agar mei milne bulaungi, Toh tum aaoge kya?✨💖🧿</p>
+</div>
+
+<!-- Music to play with custom message -->
+<audio id="extraMusic">
+    <source src="C:\Users\Dell\OneDrive\Desktop\thankyou-website\Song2.mp3.mpeg" type="audio/mpeg">
+</audio>
+
+<!-- Final Thank You -->
+<div id="finalThankYou">
+    <p>
+        Gayuu yeh joh bhi mai bolu... mhuje aaj bhi yaad hai wah tumara first day office ka
+        jab maine tumse phele baar baat ke thi pata he nhi chala kab App se leke Tu aur Tu se leke Gayuu <br>
+        tak aagaya...🥺 wah aapni Shararatein aur mastiyaan karne ka andaaz aaj bhi pure ofc me famous hai..<br>
+        maine bhi kuch jada he pagalo jaise harkate karli hai...😂😂 just kidding pagal..<br>
+        pr joh bhi ho friendship ka yeh saath ab aur pakka ho gay hai jaise ke 7 janmo ka rishta ho 😂😂<br>
+        tho Gayatri one more time a big BIG THANK YOU, THANK YOU SO MUCHHHH 💕💝😘 for everything you do for me!!<br>
+        yeh type karte waqt hassi aa rhi hai meko ke tere wah 3 pormise joh maine josh josh me haa tho bol diya <br>
+        Ab khud hi fush gaya hoon us promise mein Dyson ka ek product, tere shaadi ka makeup aur sabse important,<br>
+        shaadi ka lehenga… woh dilane ka waada...😂😂<br>
+        But I promise you, ke teeno nahi ho payenge… lekin ek toh zaroor karunga.
+        Yeh ek sachha dost ka promise hai, jo hamesha yaad rahega..💖<br>
+        Lots and lots of love, happiness, aur success tumhe mile bestie… 💝 tum humesa khush rhao!!<br>
+        From your best friend Aman 💕
+        <p>
+            Thank you!! Hope you like this 💖✨
+        </p>
+
+    </p>
+</div>
+
+<script>
+// Handle question
+function handleAnswer(ans) {
+    document.getElementById('questionBox').style.display = 'none';
+
+    if(ans === 'yes') {
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('bgMusic').play();
+        startSlides();
+        setTimeout(startFinalVideo, 25000); // video after slideshow
+    } else {
+        document.getElementById('thankYou').style.display = 'block';
+    }
+}
+
+// Slideshow
+let slideIndex = 0;
+function startSlides() {
+    let slides = document.getElementsByClassName("slide");
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    slideIndex++;
+    if (slideIndex > slides.length) slideIndex = 1;
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(startSlides, 5000);
+}
+
+// Start video
+function startFinalVideo() {
+    document.getElementById("mainContent").style.display = "none";
+
+    let video = document.getElementById("finalVideo");
+    let bgMusic = document.getElementById("bgMusic");
+
+    bgMusic.pause();
+
+    video.style.display = "block";
+    video.play();
+    setTimeout(() => { video.style.opacity = 1; }, 50);
+
+    video.onended = function() {
+        video.style.display = "none";
+        showFinalImage();
+    };
+}
+
+// Final image first
+function showFinalImage() {
+    let finalImageBox = document.getElementById("finalImageBox");
+    let customMessageBox = document.getElementById("customMessageBox");
+    let extraMusic = document.getElementById("extraMusic");
+    let finalThankYou = document.getElementById("finalThankYou");
+
+    finalImageBox.style.display = "block";
+
+    setTimeout(() => {
+        finalImageBox.style.display = "none";
+
+        // Show custom message and play second audio
+        customMessageBox.style.display = "block";
+        extraMusic.currentTime = 0;
+        extraMusic.play();
+
+        // Show custom message for 15s
+        setTimeout(() => {
+            customMessageBox.style.display = "none";
+
+            // Show final thank you and continue song for 30 seconds
+            finalThankYou.style.display = "block";
+            extraMusic.currentTime = 0;
+            extraMusic.play();
+
+            setTimeout(() => {
+                extraMusic.pause();
+                extraMusic.currentTime = 0;
+
+                // Reset page
+                location.reload();
+            }, 30000); // song plays for 30 seconds
+        }, 15000); // custom message shows for 15s
+    }, 5000); // final image shows for 5s
+}
+</script>
+
+</body>
+</html>
